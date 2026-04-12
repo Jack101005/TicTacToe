@@ -1,11 +1,13 @@
 package vgu.pe2026.ttt.basic;
 
 public class Board {
+    // 0 = empty, 1 = player#1 (human), 2 = player#2 (computer)
     private int[] cells = new int[9];
 
     public void display() {
         System.out.println();
         for (int i = 0; i < 9; i++) {
+            // Always show the raw cell value (0 if empty, 1 or 2 if occupied)
             System.out.print("| " + cells[i] + " ");
             if ((i + 1) % 3 == 0) System.out.println("|");
         }
@@ -26,6 +28,7 @@ public class Board {
     }
 
     public boolean checkWin(int playerNum) {
+        // All 8 possible winning lines (rows, columns, diagonals)
         int[][] wins = {
             {0,1,2},{3,4,5},{6,7,8},
             {0,3,6},{1,4,7},{2,5,8},

@@ -7,14 +7,18 @@ public class Game {
 
     public Game(int starter) {
         board = new Board();
-        Player human = new Player("Human", 1, true);
-        Player computer = new Player("Computer", 2, false);
+        // Players are now identified by number only, not by name "Human"/"Computer"
+        Player human = new Player("Player#1", 1, true);
+        Player computer = new Player("Player#2", 2, false);
         player1 = (starter == 1) ? human : computer;
         player2 = (starter == 1) ? computer : human;
     }
 
     public void start() {
-        System.out.println("Tic-Tac-Toe! Human = 1, Computer = 2");
+        // Welcoming message required by v0.3
+        System.out.println("Hello!");
+
+        // Show the initial board (all 0s) before any move
         board.display();
 
         Player[] players = {player1, player2};
@@ -22,18 +26,20 @@ public class Game {
 
         while (true) {
             Player current = players[turn % 2];
-            if (!current.isHuman()) System.out.println("Computer's turn:");
 
-            int move = current.getMove(board);
+            // Print whose turn it is before every move
+            System.out.println(current.getName() + "'s turn");
+
+            int move = current.getMove(board, current.getName());
             board.setCell(move, current.getNumber());
             board.display();
 
             if (board.checkWin(current.getNumber())) {
-                System.out.println(current.getName() + " wins!");
+                System.out.println(current.getName() + " won!");
                 break;
             }
             if (board.isFull()) {
-                System.out.println("It's a draw!");
+                System.out.println("It is a draw!");
                 break;
             }
             turn++;

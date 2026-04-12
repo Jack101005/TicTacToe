@@ -15,15 +15,41 @@ public class Player {
         if (isHuman) this.scanner = new Scanner(System.in);
     }
 
-    public int getMove(Board board) {
+    public int getMove(Board board, String playerName) {
         if (isHuman) {
             while (true) {
-                System.out.print(name + ", enter your move (1-9): ");
-                int move = scanner.nextInt() - 1;
-                if (move >= 0 && move <= 8 && !board.isOccupied(move)) return move;
-                System.out.println("Invalid move! Try again.");
+                String input = scanner.nextLine().trim();
+
+                int move;
+                try {
+                    move = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    // Non-integer input: show error then re-print whose turn it is
+                    System.out.println("Please, input a valid number [1-9]");
+                    System.out.println(playerName + "'s turn");
+                    continue;
+                }
+
+                // Number is outside [1-9] range
+                if (move < 1 || move > 9) {
+                    System.out.println("Please, input a valid number [1-9]");
+                    System.out.println(playerName + "'s turn");
+                    continue;
+                }
+
+                int index = move - 1;
+
+                // Cell is already taken
+                if (board.isOccupied(index)) {
+                    System.out.println("The cell is occupied!");
+                    System.out.println(playerName + "'s turn");
+                    continue;
+                }
+
+                return index;
             }
         } else {
+            // Computer always picks the first empty cell
             return board.getFirstEmpty();
         }
     }
