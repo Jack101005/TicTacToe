@@ -50,4 +50,15 @@ public class Tic_Tac_Toe_BlackBoxTest {
         restore();
         assertTrue(out.toString().contains("Please, input a valid number [1-9]"));
     }
+
+    @Test
+    public void checkforInvalidInput(){
+        setInput("a\n5\n");
+        ByteArrayOutputStream out = captureOutput();
+        Board board = new Board();
+        Player human = new Player("Player#1", 1, true);
+        human.getMove(board, "Player#1");
+        restore();
+        assertTrue(out.toString().contains("Please, input a valid number [1-9]"));
+    }
 }
