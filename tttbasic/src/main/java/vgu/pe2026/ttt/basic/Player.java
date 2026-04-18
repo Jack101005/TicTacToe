@@ -20,11 +20,18 @@ public class Player {
             while (true) {
                 String input = scanner.nextLine().trim();
 
+                // NEW in v0.4: if the user types exactly "q", end the game immediately
+                if (input.equals("q")) {
+                    System.out.println("End of the game");
+                    System.exit(0);
+                }
+
+                // Try to parse the input as an integer
                 int move;
                 try {
                     move = Integer.parseInt(input);
                 } catch (NumberFormatException e) {
-                    // Non-integer input: show error then re-print whose turn it is
+                    // Anything that is not an integer and not "q" -> error
                     System.out.println("Please, input a valid number [1-9]");
                     System.out.println(playerName + "'s turn");
                     continue;

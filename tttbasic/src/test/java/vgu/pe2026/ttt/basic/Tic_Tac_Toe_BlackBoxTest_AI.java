@@ -10,7 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class Tic_Tac_Toe_BlackBoxTest {
+public class Tic_Tac_Toe_BlackBoxTest_AI {
 
     private void setInput(String input) {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
